@@ -12,7 +12,8 @@ def oldest_file():
 
 
 def takeout():
-    query = json.loads(open(oldest_file()).read())
+    config = oldest_file()
+    query = json.loads(open(config).read())
     email = query['email']
     password = query['password']
     username = query['username']
@@ -30,6 +31,8 @@ def takeout():
 
     sys.stdout.close()
     sys.stdout = stdout_orig
+
+    os.remove(config)
 
 
 while True:

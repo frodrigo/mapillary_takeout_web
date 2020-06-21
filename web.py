@@ -5,6 +5,8 @@ import os.path
 from os import path
 import json
 
+data = "/home/fred/mapillary_takeout_web/"
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -15,15 +17,19 @@ def mapillary_takeout():
     password = request.form['password']
     username = request.form['username']
 
-    f = open("mapillary_user/" + username, "w")
+    f = open(data + "mapillary_user/" + username, "w")
     f.write(json.dumps({'email': email, 'password': password, 'username': username}))
     f.close()
+
+    log = data + 'logs/' + username
+    if os.path.exists(log):
+        os.remove(log)
 
     return redirect("mapillary_takeout/" + username, code=302)
 
 @app.route('/mapillary_takeout/<username>')
 def mapillary_takeout_username(username):
-    log = 'logs/' + username
+    log = data + 'logs/' + username
     if not path.exists(log):
         return render_template('mapillary_takeout_init.html')
 

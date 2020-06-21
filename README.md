@@ -7,7 +7,8 @@ Download your "unprocessed original" images back from Mapillary.
 ## Install
 
 ```
-virtualenv
+virtualenv -p python3 venv
+source venv/bin/activate
 pip install -r requirements.txt
 ```
 
@@ -19,6 +20,6 @@ mkdir -p logs mapillary_user photo
 
 ```
 export FLASK_APP=web.py
-# export FLASK_ENV=development
+export FLASK_ENV=development
 python -m flask run
 ```
