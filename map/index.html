@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <script src="https://cdn.maptiler.com/mapbox-gl-js/v1.5.1/mapbox-gl.js"></script>
+  <link href="https://cdn.maptiler.com/mapbox-gl-js/v1.5.1/mapbox-gl.css" rel="stylesheet" />
+  <style>
+    #map {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <p><a href="https://www.maptiler.com/copyright/" target="_blank">© MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a></p>
+  <script>
+    // You can remove the following line if you don't need support for RTL (right-to-left) labels:
+    mapboxgl.setRTLTextPlugin('https://cdn.maptiler.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.1.2/mapbox-gl-rtl-text.js');
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'https://api.maptiler.com/maps/basic/style.json?key=orA5vDO6s7Vhtu4MHtvm',
+      center: [0, 0],
+      zoom: 1,
+      hash: true,
+    });
+
+    map.addControl(new mapboxgl.NavigationControl());
+
+    map.addControl(new mapboxgl.ScaleControl({
+        maxWidth: 80,
+        unit: 'metric'
+    }));
+
+    map.on('load', function() {
+        map.addSource('street', {
+          "type": "vector",
+          "url": "https://mapillary-takeout-web.openstreetmap.fr/data/streets.json"
+        });
+
+      map.addLayer({
+        "id": "image-circle",
+        "type": "circle",
+        "source": "street",
+        "source-layer": "images",
+        "paint": {
+          "circle-color": "rgba(255, 152, 0, 1)"
+      }});
+
+/*
+      map.addLayer({
+        "id": "image-heading",
+        "type": "symbol",
+        "source": "street",
+        "source-layer": "images",
+        "layout": {
+          "icon-rotate": ["+", ["get", "heading"], 180],
+          "icon-image": "airport_15"
+        }});
+*/
+
+        map.on('click', 'image-circle', function(e) {
+            var coordinates = e.features[0].geometry.coordinates.slice();
+            var description = e.features[0].properties;
+
+            // Ensure that if the map is zoomed out such that multiple
+            // copies of the feature are visible, the popup appears
+            // over the copy being pointed to.
+            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            }
+
+            const img = "/photo" + description.user + "/"  + description.image;
+            new mapboxgl.Popup()
+              .setLngLat(coordinates)
+              .setHTML(`<img src="${img}" width="200px"/>`)
+              .addTo(map);
+        });
+    });
+  </script>
+</body>
+</html>
