@@ -30,7 +30,7 @@ def takeout():
         None
     )
 
-    gen_geojson.parse_user(username)
+    gen_geojson.parse_user("photo/" + username)
 
     sys.stdout.close()
     sys.stdout = stdout_orig

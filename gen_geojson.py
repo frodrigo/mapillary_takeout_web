@@ -88,8 +88,8 @@ def parse_comment(comment):
 
     return None, None, None
 
-def parse_image(user, dir, image):
-    img = PIL.Image.open(user + "/" + dir + "/" + image)
+def parse_image(user, seq, image):
+    img = PIL.Image.open(user + "/" + seq + "/" + image)
 
     exif = img._getexif()
     #for (k,v) in exif.items():
@@ -113,7 +113,7 @@ def parse_image(user, dir, image):
         },
         "properties": {
             "user": user,
-            "sequence": dir,
+            "sequence": seq,
             "image": image,
             "DateTimeOriginal": exif.get(36867),
             "Orientation": exif.get(1),
