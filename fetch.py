@@ -2,6 +2,7 @@ import json, os
 import mapillary_takeout
 import sys
 import time
+import gen_geojson
 
 stdout_orig = sys.stdout
 
@@ -28,6 +29,8 @@ def takeout():
         None,
         None
     )
+
+    gen_geojson.parse_user(username)
 
     sys.stdout.close()
     sys.stdout = stdout_orig
