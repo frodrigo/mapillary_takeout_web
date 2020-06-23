@@ -18,9 +18,17 @@ mkdir -p logs mapillary_user photo
 
 ## Tools
 
+Install npm, tippecanoe.
+
+Then:
 ``
 npm install
 ``
+
+Add mapillary_takeout:
+```
+wget https://raw.githubusercontent.com/gitouche-sur-osm/mapillary_takeout/master/mapillary_takeout.py
+```
 
 ## Dev
 
