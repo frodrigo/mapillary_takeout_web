@@ -11,7 +11,7 @@ data = "/home/fred/mapillary_takeout_web/"
 def index():
     return render_template('index.html')
 
-@app.route('/mapillary_takeout', methods=['POST'])
+@app.route('/mapillary_takeout')
 def mapillary_takeout():
     return render_template('mapillary_takeout.html')
 
