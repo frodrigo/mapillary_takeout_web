@@ -13,6 +13,10 @@ def index():
 
 @app.route('/mapillary_takeout', methods=['POST'])
 def mapillary_takeout():
+    return render_template('mapillary_takeout.html')
+
+@app.route('/mapillary_takeout', methods=['POST'])
+def mapillary_takeout_submit():
     email = request.form['email']
     password = request.form['password']
     username = request.form['username']
