@@ -1,11 +1,12 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, Response
 app = Flask(__name__)
 
 import os.path
 from os import path
 import json
+import zipstream
 
-data = "/home/fred/mapillary_takeout_web/"
+data = os.path.dirname(__file__) + '/'
 
 @app.route('/')
 def index():
@@ -39,3 +40,22 @@ def mapillary_takeout_username(username):
 
     content = open(log, 'r').read()
     return render_template('mapillary_takeout_progress.html', username=username, content=content)
+
+@app.route('/photo/<username>.zip')
+def zip(username):
+    if '/' in username: # No path injection
+        return
+
+    z = zipstream.ZipFile(mode = 'w', compression = zipstream.ZIP_DEFLATED, allowZip64 = True)
+
+    list_of_seq = os.listdir(data + 'photo/' + username)
+    for seq in list_of_seq:
+        s = data + 'photo/' + username + '/' + seq
+        if os.path.isdir(s):
+            list_of_images = os.listdir(s)
+            for image in list_of_images:
+                z.write(s + '/' + image)
+
+    response = Response(z, mimetype = 'application/zip')
+    response.headers['Content-Disposition'] = f'attachment; filename={username}.zip'
+    return response
