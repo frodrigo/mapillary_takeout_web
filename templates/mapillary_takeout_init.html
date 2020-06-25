@@ -3,7 +3,19 @@
   <meta http-equiv="refresh" content="5" >
 </head>
 <body>
+<p>
 Download not started yet. Wait. This page will refresh.
 You can close this page and back later.
+</p>
+
+<p>
+Dowload queue:
+<ol>
+{% for user in queue %}
+    <li><a href="{{user}}">{{user}}</a></li>
+{% endfor %}
+<ol>
+</p>
+
 </body>
 </html>

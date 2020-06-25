@@ -36,7 +36,11 @@ def mapillary_takeout_submit():
 def mapillary_takeout_username(username):
     log = data + 'logs/' + username
     if not path.exists(log):
-        return render_template('mapillary_takeout_init.html')
+        list_of_files = os.listdir(data + 'mapillary_user')
+        full_path = ["mapillary_user/{0}".format(x) for x in list_of_files]
+        queue = sorted(full_path, key = os.path.getctime)
+
+        return render_template('mapillary_takeout_init.html', queue = queue)
 
     content = open(log, 'r').read()
     return render_template('mapillary_takeout_progress.html', username=username, content=content)
