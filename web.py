@@ -45,7 +45,7 @@ def mapillary_takeout_username(username):
     content = open(log, 'r').read()
     return render_template('mapillary_takeout_progress.html', username=username, content=content)
 
-@app.route('/photo/<username>.zip')
+@app.route('/export/<username>.zip')
 def zip(username):
     if '/' in username: # No path injection
         return

@@ -95,7 +95,10 @@ def parse_image(user, seq, image):
     #for (k,v) in exif.items():
     #        print('%s %s = %s' % (k, TAGS.get(k), v))
 
-    lat, lon, dir = parse_gps(exif[34853])
+    try:
+        lat, lon, dir = parse_gps(exif[34853])
+    except:
+        pass
     m_lat, m_lon, m_dir = parse_comment(exif.get(270))
 
     if m_lat is None:

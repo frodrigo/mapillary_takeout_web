@@ -3,6 +3,7 @@ import mapillary_takeout
 import sys
 import time
 import gen_geojson
+import traceback
 
 stdout_orig = sys.stdout
 
@@ -21,25 +22,32 @@ def takeout():
 
     sys.stdout = open('logs/' + username, 'w')
 
-    mapillary_takeout.main(
-        email,
-        password,
-        username,
-        f'photo/{username}',
-        None,
-        None
-    )
+    try:
+        mapillary_takeout.main(
+            email,
+            password,
+            username,
+            f'photo/{username}',
+            None,
+            None
+        )
 
-    gen_geojson.parse_user("photo/" + username)
+        gen_geojson.parse_user("photo/" + username)
 
-    sys.stdout.close()
-    sys.stdout = stdout_orig
+        sys.stdout.close()
+        sys.stdout = stdout_orig
 
-    os.remove(config)
+        os.remove(config)
+    except:
+        sys.stdout.close()
+        sys.stdout = stdout_orig
+
+        print("Unexpected error:", traceback.format_exc())
 
 
 while True:
     list_of_files = os.listdir('mapillary_user')
+    print(list_of_files)
     if len(list_of_files) > 0:
         takeout()
     else:
