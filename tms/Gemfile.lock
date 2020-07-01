@@ -4,7 +4,7 @@ GEM
     connection_pool (2.2.3)
     pg (1.2.3)
     rack (1.6.0)
-    rack-protection (1.5.3)
+    rack-protection (1.5.5)
       rack
     rake (0.9.6)
     sinatra (1.4.5)
