@@ -50,5 +50,4 @@ while True:
     print(list_of_files)
     if len(list_of_files) > 0:
         takeout()
-    else:
-        time.sleep(10)
+    time.sleep(10)
