@@ -73,8 +73,8 @@ __END__
     <title>Redirection HTTP de tuile TMS vers le WMS du Cadastre</title>
     <meta charset="utf-8" />
 
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@0.7.3/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@0.7.3/dist/leaflet.css" />
 </head>
 <body>
     <div id="map" style="width: 100%; height: 600px"></div>
@@ -85,14 +85,14 @@ __END__
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         });
 
-        var photo = L.tileLayer('/{z}/{x}/{y}.png', {
+        var photo = L.tileLayer('/tms/{z}/{x}/{y}.png', {
             maxZoom: 25,
             attribution: 'Photo',
         });
 
         var map = L.map('map', {layers: [osm, photo]}).setView([44.8265, -0.5692], 13);
     </script>
-<% host = request.host + (request.port != 80 ? ":#{request.port.to_s}" : "") %>
-tms[25]:http://<%= host %>/{z}/{x}/{y}.png
+<% host = request.host %>
+tms[25]:http://<%= host %>/tms/{z}/{x}/{y}.png
 </body>
 </html>

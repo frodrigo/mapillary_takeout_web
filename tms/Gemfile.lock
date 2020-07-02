@@ -2,16 +2,20 @@ GEM
   remote: https://rubygems.org/
   specs:
     connection_pool (2.2.3)
+    mustermann (1.1.1)
+      ruby2_keywords (~> 0.0.1)
     pg (1.2.3)
-    rack (1.6.0)
-    rack-protection (1.5.3)
+    rack (2.2.3)
+    rack-protection (2.0.8.1)
       rack
-    rake (0.9.6)
-    sinatra (1.4.5)
-      rack (~> 1.4)
-      rack-protection (~> 1.4)
-      tilt (~> 1.3, >= 1.3.4)
-    tilt (1.4.1)
+    rake (13.0.1)
+    ruby2_keywords (0.0.2)
+    sinatra (2.0.8.1)
+      mustermann (~> 1.0)
+      rack (~> 2.0)
+      rack-protection (= 2.0.8.1)
+      tilt (~> 2.0)
+    tilt (2.0.10)
 
 PLATFORMS
   ruby
@@ -23,5 +27,8 @@ DEPENDENCIES
   rake
   sinatra
 
+RUBY VERSION
+   ruby 2.5.5p157
+
 BUNDLED WITH
-   2.1.4
+   1.17.3
