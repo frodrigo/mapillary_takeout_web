@@ -2,3 +2,5 @@ flask
 requests
 pillow
 zipstream
+matplotlib
+tensorflow
