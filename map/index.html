@@ -37,18 +37,21 @@
           "https://mapillary-takeout-web.openstreetmap.fr/tms/{z}/{x}/{y}.jpg?s=256"
         ],
         "tileSize": 256,
+        "minzoom": 16,
+        "maxzoom": 21,
       });
       map.addLayer({
         "id": "image",
         "type": "raster",
         "source": "image",
+        "minzoom": 16,
         "paint": {
-          "raster-opacity": 0.2,
+          "raster-opacity": ["interpolate", ["linear"], ["zoom"], 17, 0.2, 22, 1]
       }});
 
         map.addSource('street', {
           "type": "vector",
-          "url": "https://mapillary-takeout-web.openstreetmap.fr/data/streets.json"
+          "url": "https://mapillary-takeout-web.openstreetmap.fr/data/streets.json",
         });
 
       map.addLayer({
