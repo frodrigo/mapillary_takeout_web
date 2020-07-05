@@ -58,7 +58,7 @@ def image(username, seq, image):
     except:
         pass
 
-    img_path = f'photo/{username}/{seq}/{image}'
+    img_path = data + f'photo/{username}/{seq}/{image}'
     img_mask = img_path.rsplit('.', 1)[0] + '-blurred.png'
     if path.exists(img_path):
         if path.exists(img_mask):

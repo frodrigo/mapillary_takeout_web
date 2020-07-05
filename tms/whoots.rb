@@ -19,7 +19,7 @@ get '/' do
 end
 
 get '/:z/:x/:y.jpg' do
-  params = request.env['rack.request.query_hash']
+  row_params = request.query_string
   x = params[:x].to_i
   y = params[:y].to_i
   z = params[:z].to_i
@@ -41,7 +41,7 @@ WHERE geom && ST_MakeLine(ST_MakePoint(#{min[:lng_deg]}, #{min[:lat_deg]}, 4326)
 LIMIT 1""") do |result|
       result.each do |row|
         puts row.inspect
-        url = "https://mapillary-takeout-web.openstreetmap.fr/#{row['user']}/#{row['sequence']}#{row['image']}?#{params}"
+        url = "https://mapillary-takeout-web.openstreetmap.fr/#{row['user']}/#{row['sequence']}#{row['image']}?#{row_params}"
         puts url
       end
     end
