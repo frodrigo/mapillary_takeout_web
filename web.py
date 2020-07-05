@@ -1,10 +1,12 @@
-from flask import Flask, render_template, redirect, request, Response
+from flask import Flask, render_template, redirect, request, Response, send_file, abort
 app = Flask(__name__)
 
 import os.path
 from os import path
 import json
 import zipstream
+from PIL import Image
+from io import BytesIO
 
 data = os.path.dirname(__file__) + '/'
 
@@ -44,6 +46,37 @@ def mapillary_takeout_username(username):
 
     content = open(log, 'r').read()
     return render_template('mapillary_takeout_progress.html', username=username, content=content)
+
+@app.route('/photo/<username>/<seq>/<image>')
+def image(username, seq, image):
+    if '/' in username or '/' in seq or '/' in image: # No path injection
+        return
+
+    try:
+        s = request.args.get('s')
+        s = int(s)
+    except:
+        pass
+
+    img_path = f'photo/{username}/{seq}/{image}'
+    img_mask = img_path.rsplit('.', 1)[0] + '-blurred.png'
+    if path.exists(img_path):
+        if path.exists(img_mask):
+            img = Image.open(img_path)
+            mask = Image.open(img_mask)
+            img.paste(mask, mask=mask)
+
+            if s:
+                img.thumbnail((s, s), Image.ANTIALIAS)
+
+            img_io = BytesIO()
+            img.save(img_io, 'JPEG', quality=90)
+            img_io.seek(0)
+            return send_file(img_io, mimetype='image/jpeg')
+        else:
+            return send_file(img_path)
+    else:
+        abort(404)
 
 @app.route('/export/<username>.zip')
 def zip(username):

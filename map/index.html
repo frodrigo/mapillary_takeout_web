@@ -19,6 +19,7 @@
       style: 'https://api.maptiler.com/maps/basic/style.json?key=orA5vDO6s7Vhtu4MHtvm',
       center: [0, 0],
       zoom: 1,
+      maxzoom: 25,
       hash: true,
     });
 
@@ -30,6 +31,21 @@
     }));
 
     map.on('load', function() {
+      map.addSource('image', {
+        "type": "raster",
+        "tiles": [
+          "https://mapillary-takeout-web.openstreetmap.fr/tms/{z}/{x}/{y}.jpg?s=256"
+        ],
+        "tileSize": 256,
+      });
+      map.addLayer({
+        "id": "image",
+        "type": "raster",
+        "source": "image",
+        "paint": {
+          "raster-opacity": 0.2,
+      }});
+
         map.addSource('street', {
           "type": "vector",
           "url": "https://mapillary-takeout-web.openstreetmap.fr/data/streets.json"

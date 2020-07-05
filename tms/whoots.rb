@@ -18,7 +18,8 @@ get '/' do
   erb :index
 end
 
-get '/:z/:x/:y.png' do
+get '/:z/:x/:y.jpg' do
+  params = request.env['rack.request.query_hash']
   x = params[:x].to_i
   y = params[:y].to_i
   z = params[:z].to_i
@@ -40,7 +41,7 @@ WHERE geom && ST_MakeLine(ST_MakePoint(#{min[:lng_deg]}, #{min[:lat_deg]}, 4326)
 LIMIT 1""") do |result|
       result.each do |row|
         puts row.inspect
-        url = "https://mapillary-takeout-web.openstreetmap.fr/#{row['user']}/#{row['sequence']}#{row['image']}"
+        url = "https://mapillary-takeout-web.openstreetmap.fr/#{row['user']}/#{row['sequence']}#{row['image']}?#{params}"
         puts url
       end
     end
@@ -85,7 +86,7 @@ __END__
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         });
 
-        var photo = L.tileLayer('/tms/{z}/{x}/{y}.png', {
+        var photo = L.tileLayer('/tms/{z}/{x}/{y}.jpg?s=256', {
             maxZoom: 25,
             attribution: 'Photo',
         });
@@ -93,6 +94,6 @@ __END__
         var map = L.map('map', {layers: [osm, photo]}).setView([44.8265, -0.5692], 13);
     </script>
 <% host = request.host %>
-tms[25]:http://<%= host %>/tms/{z}/{x}/{y}.png
+tms[25]:https://<%= host %>/tms/{z}/{x}/{y}.jpg?s=256
 </body>
 </html>
