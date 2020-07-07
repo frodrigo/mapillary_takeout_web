@@ -85,7 +85,7 @@
                 coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
             }
 
-            const img = "/" + description.user + "/" + description.sequence + "/" + description.image;
+            const img = "/" + description.user + "/" + description.dir + "/" + description.image;
             new mapboxgl.Popup()
               .setLngLat(coordinates)
               .setHTML(`<img src="${img}?s=256" width="200px"/>`)

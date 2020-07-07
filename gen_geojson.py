@@ -121,7 +121,8 @@ def parse_image(rep, user, seq, image):
         },
         "properties": {
             "user": user,
-            "sequence": sequence or seq,
+            "dir": seq,
+            "sequence": sequence,
             "image": image,
             "DateTimeOriginal": exif.get(36867),
             "Orientation": exif.get(1),
