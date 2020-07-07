@@ -41,7 +41,7 @@ WHERE geom && ST_MakeLine(ST_MakePoint(#{min[:lng_deg]}, #{min[:lat_deg]}, 4326)
 LIMIT 1""") do |result|
       result.each do |row|
         puts row.inspect
-        url = "https://mapillary-takeout-web.openstreetmap.fr/#{row['user']}/#{row['sequence']}#{row['image']}?#{row_params}"
+        url = "https://mapillary-takeout-web.openstreetmap.fr/#{row['user']}/#{row['sequence']}/#{row['image']}?#{row_params}"
         puts url
       end
     end

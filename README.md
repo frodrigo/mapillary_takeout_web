@@ -73,3 +73,10 @@ Convert to MBTiles, from photo directory:
 ```
 tippecanoe -o images.mbtiles -l images -r1 --cluster-distance=1 photo.geojson
 ```
+
+Prepare data from TMS
+```
+ogr2ogr -oo DATE_AS_STRING=YES photo.shp photo.geojson
+shp2pgsql -d photo.shp > photo.sql
+psql < photo.sql
+```

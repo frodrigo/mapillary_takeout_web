@@ -90,8 +90,8 @@ def parse_comment(comment):
 
     return None, None, None, None
 
-def parse_image(user, seq, image):
-    img = PIL.Image.open(user + "/" + seq + "/" + image)
+def parse_image(rep, user, seq, image):
+    img = PIL.Image.open(rep + "/" + user + "/" + seq + "/" + image)
 
     exif = img._getexif()
     #for (k,v) in exif.items():
@@ -127,9 +127,9 @@ def parse_image(user, seq, image):
     }
 
 
-def parse_seq(user, seq):
-    list_of_files = os.listdir(user + "/" + seq)
-    seq = [parse_image(user, seq, image) for image in list_of_files]
+def parse_seq(rep, user, seq):
+    list_of_files = os.listdir(rep + "/" + user + "/" + seq)
+    seq = [parse_image(rep, user, seq, image) for image in list_of_files]
     seq = sorted(seq, key = lambda i: i["properties"]["DateTimeOriginal"])
     return {
         "type": "FeatureCollection",
@@ -139,14 +139,14 @@ def parse_seq(user, seq):
         }
     }
 
-def parse_user(user):
-    list_of_files = os.listdir(user)
-    for seq in [s for s in list_of_files if os.path.isdir(user + "/" + s)]:
+def parse_user(rep, user):
+    list_of_files = os.listdir(rep + "/" + user)
+    for seq in [s for s in list_of_files if os.path.isdir(rep + "/" + user + "/" + s)]:
         print(f"Extract meta data {seq}")
-        s = parse_seq(user, seq)
-        f = open(user + "/" + seq + "-point.geojson", "w")
+        s = parse_seq(rep, user, seq)
+        f = open(rep + "/" + user + "/" + seq + "-point.geojson", "w")
         f.write(json.dumps(s))
         f.close()
 
 if __name__ == "__main__":
-    parse_user(sys.argv[1])
+    parse_user(sys.argv[1], sys.argv[2])
