@@ -88,7 +88,7 @@
             const img = "/" + description.user + "/" + description.sequence + "/" + description.image;
             new mapboxgl.Popup()
               .setLngLat(coordinates)
-              .setHTML(`<img src="${img}" width="200px"/>`)
+              .setHTML(`<img src="${img}?s=256" width="200px"/>`)
               .addTo(map);
         });
     });

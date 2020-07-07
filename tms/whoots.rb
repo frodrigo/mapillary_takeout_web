@@ -49,7 +49,7 @@ LIMIT 1""") do |result|
   if url
     redirect url
   else
-    redirect "/empty.png"
+    halt 204
   end
 end
 
@@ -94,6 +94,6 @@ __END__
         var map = L.map('map', {layers: [osm, photo]}).setView([44.8265, -0.5692], 13);
     </script>
 <% host = request.host %>
-tms[25]:https://<%= host %>/tms/{z}/{x}/{y}.jpg?s=256
+tms[22]:https://<%= host %>/tms/{z}/{x}/{y}.jpg?s=256
 </body>
 </html>
