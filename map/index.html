@@ -89,7 +89,7 @@
             const img = "/photo/" + description.user + "/" + description.dir + "/" + description.image;
             new mapboxgl.Popup()
               .setLngLat(coordinates)
-              .setHTML(`<img src="${img}?s=256" width="200px"/>`)
+              .setHTML(`<img src="${img}?s=256" width="200px"/><br/><a href="${img}">${description.user}/${description.dir}</a>`)
               .addTo(map);
         });
     });
