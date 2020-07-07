@@ -74,7 +74,7 @@ Convert to MBTiles, from photo directory:
 tippecanoe -o images.mbtiles -l images -r1 --cluster-distance=1 photo.geojson
 ```
 
-Prepare data from TMS
+Prepare data from TMS, with GDAL >= 3.0.3
 ```
 ogr2ogr -oo DATE_AS_STRING=YES photo.shp photo.geojson
 shp2pgsql -d photo.shp > photo.sql
