@@ -84,9 +84,11 @@ def parse_comment(comment):
         lat = float(j.get("MAPLatitude"))
         lon = float(j.get("MAPLongitude"))
 
-        return lat, lon, dir
+        sequence = j.get("MAPSequenceUUID")
 
-    return None, None, None
+        return lat, lon, dir, sequence
+
+    return None, None, None, None
 
 def parse_image(user, seq, image):
     img = PIL.Image.open(user + "/" + seq + "/" + image)
@@ -99,7 +101,7 @@ def parse_image(user, seq, image):
         lat, lon, dir = parse_gps(exif[34853])
     except:
         pass
-    m_lat, m_lon, m_dir = parse_comment(exif.get(270))
+    m_lat, m_lon, m_dir, sequence = parse_comment(exif.get(270))
 
     if m_lat is None:
         m_lat = lat
@@ -116,7 +118,7 @@ def parse_image(user, seq, image):
         },
         "properties": {
             "user": user,
-            "sequence": seq,
+            "sequence": sequence or seq,
             "image": image,
             "DateTimeOriginal": exif.get(36867),
             "Orientation": exif.get(1),
