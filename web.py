@@ -58,7 +58,7 @@ def image(username, seq, image):
     except:
         pass
 
-    img_path = data + f'photo/{username}/{seq}/{image}'
+    img_path = f'{data}/photo/{username}/{seq}/{image}'
     img_mask = img_path.rsplit('.', 1)[0] + '-blurred.png'
     if path.exists(img_path):
         if path.exists(img_mask):
@@ -85,9 +85,9 @@ def zip(username):
 
     z = zipstream.ZipFile(mode = 'w', compression = zipstream.ZIP_DEFLATED, allowZip64 = True)
 
-    list_of_seq = os.listdir(data + 'photo/' + username)
+    list_of_seq = os.listdir(f"{data}/photo/{username}")
     for seq in list_of_seq:
-        s = data + 'photo/' + username + '/' + seq
+        s = f"{data}/photo/{username}/{seq}"
         if os.path.isdir(s):
             list_of_images = os.listdir(s)
             for image in list_of_images:
