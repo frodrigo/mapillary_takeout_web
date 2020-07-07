@@ -16,6 +16,11 @@ pip install -r requirements.txt
 mkdir -p logs mapillary_user photo
 ```
 
+```
+git clone https://github.com/tyndare/blur-persons.git
+git clone https://github.com/gitouche-sur-osm/mapillary_takeout.git
+```
+
 ## Tools
 
 Install npm, tippecanoe.
