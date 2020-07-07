@@ -68,6 +68,7 @@
         "type": "symbol",
         "source": "street",
         "source-layer": "images",
+        "minzoom": 16,
         "layout": {
           "icon-rotate": ["get", "heading"],
           "icon-image": "oneway",
@@ -85,7 +86,7 @@
                 coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
             }
 
-            const img = "/" + description.user + "/" + description.dir + "/" + description.image;
+            const img = "/photo/" + description.user + "/" + description.dir + "/" + description.image;
             new mapboxgl.Popup()
               .setLngLat(coordinates)
               .setHTML(`<img src="${img}?s=256" width="200px"/>`)
