@@ -94,6 +94,9 @@ def parse_image(rep, user, seq, image):
     img = PIL.Image.open(rep + "/" + user + "/" + seq + "/" + image)
 
     exif = img._getexif()
+    if not exif:
+        return
+
     #for (k,v) in exif.items():
     #        print('%s %s = %s' % (k, TAGS.get(k), v))
 
@@ -129,7 +132,8 @@ def parse_image(rep, user, seq, image):
 
 def parse_seq(rep, user, seq):
     list_of_files = os.listdir(rep + "/" + user + "/" + seq)
-    seq = [parse_image(rep, user, seq, image) for image in list_of_files]
+    seq = [parse_image(rep, user, seq, image) for image in sorted(list_of_files)]
+    seq = [s for s in seq if s]
     seq = sorted(seq, key = lambda i: i["properties"]["DateTimeOriginal"])
     return {
         "type": "FeatureCollection",
@@ -141,8 +145,8 @@ def parse_seq(rep, user, seq):
 
 def parse_user(rep, user):
     list_of_files = os.listdir(rep + "/" + user)
-    for seq in [s for s in list_of_files if os.path.isdir(rep + "/" + user + "/" + s)]:
-        print(f"Extract meta data {seq}")
+    for seq in [s for s in sorted(list_of_files) if os.path.isdir(rep + "/" + user + "/" + s)]:
+        print(f"Extract meta data {user}/{seq}")
         s = parse_seq(rep, user, seq)
         f = open(rep + "/" + user + "/" + seq + "-point.geojson", "w")
         f.write(json.dumps(s))
