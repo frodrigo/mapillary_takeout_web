@@ -35,13 +35,13 @@ get '/:z/:x/:y.jpg' do
   url = nil
   con_pool.with{ |conn|
     conn.exec("""
-SELECT \"user\", sequence, image
+SELECT \"user\", dir, image
 FROM photo
 WHERE geom && ST_MakeLine(ST_MakePoint(#{min[:lng_deg]}, #{min[:lat_deg]}, 4326), ST_MakePoint(#{max[:lng_deg]}, #{max[:lat_deg]}, 4326))
 LIMIT 1""") do |result|
       result.each do |row|
         puts row.inspect
-        url = "https://mapillary-takeout-web.openstreetmap.fr/photo/#{row['user']}/#{row['sequence']}/#{row['image']}?#{row_params}"
+        url = "https://mapillary-takeout-web.openstreetmap.fr/photo/#{row['user']}/#{row['dir']}/#{row['image']}?#{row_params}"
         puts url
       end
     end
