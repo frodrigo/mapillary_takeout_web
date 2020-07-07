@@ -73,7 +73,7 @@ def parse_comment(comment):
         try:
             j = json.loads(comment)
         except:
-            return None, None, None
+            return None, None, None, None
 
         lat = lon = dir = None
         if "MAPCompassHeading" in j and "TrueHeading" in j["MAPCompassHeading"]:
