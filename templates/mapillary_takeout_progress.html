@@ -1,8 +1,10 @@
-<html>
-<head>
-  <meta http-equiv="refresh" content="5" >
-</head>
-<body>
+{% extends "template.html" %}
+{% block title %}Mapillary Takeout{% endblock %}
+{% block head %}
+    {{ super() }}
+    <meta http-equiv="refresh" content="5" >
+{% endblock %}
+{% block content %}
 Download in progress.
 Photo will be available at:
 <ul>
@@ -12,5 +14,4 @@ Photo will be available at:
 <pre>
 {{content}}
 </pre>
-</body>
-</html>
+{% endblock %}

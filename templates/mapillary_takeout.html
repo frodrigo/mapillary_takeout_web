@@ -1,6 +1,6 @@
-<html>
-<body>
-
+{% extends "template.html" %}
+{% block title %}Mapillary Takeout{% endblock %}
+{% block content %}
 <ul>
     <li>Before sumiting you password here, change it on Mapillary.</li>
     <li>We store your PASSWORD in PLAIN TEXT during the download.</li>
@@ -23,6 +23,4 @@
 
   <input type="submit">
 </form>
-
-</body>
-</html>
+{% endblock %}
