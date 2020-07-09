@@ -75,10 +75,10 @@
                 coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
             }
 
-            const img = `${prop.remote}/photo/${prop.user}/${prop.dir}/${prop.image}`;
+            const img = `${prop.remote}/${prop.user}/${prop.dir}/${prop.image}`;
             new mapboxgl.Popup()
               .setLngLat(coordinates)
-              .setHTML(`<img src="${img}?s=256" width="256px"/><br/><a href="${img}">${prop.user}/${prop.dir}</a>`)
+              .setHTML(`<img src="${img}?s=256" width="200px"/><br/><a href="${img}">${prop.user}/${prop.dir}</a>`)
               .addTo(map);
         });
     });
