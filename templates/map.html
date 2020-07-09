@@ -1,0 +1,13 @@
+{% extends "template.html" %}
+{% block title %}OpenCrowdCapture - Map{% endblock %}
+{% block head %}
+    {{ super() }}
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    {% include '_map_head.html' %}
+    <style>
+#map {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}
+    </style>
+{% endblock %}
+{% block content %}
+  {% include '_map_body.html' %}
+{% endblock %}
