@@ -63,7 +63,7 @@ python fetch.py
 `npm bin`/tileserver-gl-light -c map/config.json --public_url https://mapillary-takeout-web.openstreetmap.fr
 ```
 
-## Update task
+## Backend task
 
 Merge sequences from users:
 ```
@@ -71,7 +71,21 @@ for user in photo/*/; do
     `npm bin`/geojson-merge $user/*.geojson > "${user::-1}.geojson"
 done
 
-`npm bin`/geojson-merge photo/*.geojson > map/photo.geojson
+`npm bin`/geojson-merge photo/*.geojson > photo.geojson
+```
+
+## Frontend task
+
+Collect photo.json from backends.
+
+Add remote backend URL:
+```
+jq '.features[].properties.remote = "https://mapillary-takeout-web.openstreetmap.fr/photo"' < photo.geojson > map/photo-takeout.geojson
+```
+
+Merge:
+```
+`npm bin`/geojson-merge map/photo-*.geojson > map/photo.geojson
 ```
 
 Convert to MBTiles, from photo directory:

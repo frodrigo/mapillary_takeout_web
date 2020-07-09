@@ -35,12 +35,12 @@ get '/:z/:x/:y.jpg' do
   url = nil
   con_pool.with{ |conn|
     conn.exec("""
-SELECT \"user\", dir, image
+SELECT remote, \"user\", dir, image
 FROM photo
 WHERE geom && ST_MakeLine(ST_MakePoint(#{min[:lng_deg]}, #{min[:lat_deg]}, 4326), ST_MakePoint(#{max[:lng_deg]}, #{max[:lat_deg]}, 4326))
 LIMIT 1""") do |result|
       result.each do |row|
-        url = "/photo/#{row['user']}/#{row['dir']}/#{row['image']}?#{row_params}"
+        url = "#{row['remote']}/photo/#{row['user']}/#{row['dir']}/#{row['image']}?#{row_params}"
         puts url
       end
     end
