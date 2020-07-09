@@ -65,14 +65,16 @@ def image(username, seq, image):
     img_path = f'{data}/photo/{username}/{seq}/{image}'
     img_mask = img_path.rsplit('.', 1)[0] + '-mask.png'
     if path.exists(img_path):
+        img = Image.open(img_path)
+        mask = None
         if path.exists(img_mask):
-            img = Image.open(img_path)
             mask = Image.open(img_mask)
             img.paste(mask, mask=mask)
 
-            if s:
-                img.thumbnail((s, s), Image.ANTIALIAS)
+        if s:
+            img.thumbnail((s, s), Image.ANTIALIAS)
 
+        if mask or s:
             img_io = BytesIO()
             img.save(img_io, 'JPEG', quality=90)
             img_io.seek(0)
