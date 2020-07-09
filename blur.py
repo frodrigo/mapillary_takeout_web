@@ -14,7 +14,7 @@ def parse_seq(user, seq):
         classes = ['person', 'bus', 'car', 'motorbike'],
         blur = 'white',
         dest = None,
-        suffix = '-blurred',
+        suffix = '-mask',
         dezoom = 6,
         quality = None,
         mask = True,

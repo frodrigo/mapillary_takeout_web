@@ -59,7 +59,7 @@ def image(username, seq, image):
         pass
 
     img_path = f'{data}/photo/{username}/{seq}/{image}'
-    img_mask = img_path.rsplit('.', 1)[0] + '-blurred.png'
+    img_mask = img_path.rsplit('.', 1)[0] + '-mask.png'
     if path.exists(img_path):
         if path.exists(img_mask):
             img = Image.open(img_path)
