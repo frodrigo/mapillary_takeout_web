@@ -14,6 +14,10 @@ data = os.path.dirname(__file__) + '/'
 def index():
     return render_template('index.html')
 
+@app.route('/map')
+def map():
+    return render_template('map.html')
+
 @app.route('/mapillary_takeout')
 def mapillary_takeout():
     return render_template('mapillary_takeout.html')
