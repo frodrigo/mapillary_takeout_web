@@ -1,6 +1,6 @@
 {
   "dependencies": {
     "@mapbox/geojson-merge": "^1.1.1",
-    "tileserver-gl-light": "^3.0.0"
+    "tileserver-gl-light": "^4.4.8"
   }
 }
